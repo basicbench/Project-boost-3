@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Rocket : MonoBehaviour
 {
+    private const string V = "Friendly";
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 100f;
     Rigidbody rigidBody;
@@ -18,6 +19,21 @@ public class Rocket : MonoBehaviour
     {
         Thrust();
         Rotate();
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("OK");
+                break;
+            case "Fuel":
+                print("Fuel");
+                break;
+            default:
+                print("Dead");
+                break;
+        }
     }
     private void Thrust()
     {
